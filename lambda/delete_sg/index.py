@@ -6,7 +6,7 @@ ec2 = boto3.client('ec2')
 def handler(event, context):
     print(event)
     #セキュリティグループIDを取得
-    sgID = ''
+    sgId = ''
 
     #セキュリティグループの削除を実行
     try:
