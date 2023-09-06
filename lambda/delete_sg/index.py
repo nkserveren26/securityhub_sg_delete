@@ -1,4 +1,5 @@
 import boto3
+import json
 from botocore.exceptions import ClientError
 
 ec2 = boto3.client('ec2')
@@ -6,7 +7,9 @@ ec2 = boto3.client('ec2')
 def handler(event, context):
     print(event)
     #セキュリティグループIDを取得
-    sgId = ''
+    message = json.loads(event['Records'][0]['Sns']['Message'])
+
+    sgId = message['detail']['findings'][0]['Resources'][0]['Details']['Other']['groupId']
 
     #セキュリティグループの削除を実行
     try:
