@@ -13,8 +13,8 @@ def handler(event, context):
         response = ec2.revoke_security_group_ingress(
             CidrIp = '0.0.0.0/0',
             GroupId = sgId,
-            FromPort = 3389,
-            ToPort = 3389,
+            FromPort = 0,
+            ToPort = 0,
             IpProtocol = 'tcp'
         )
     except ClientError as e:
