@@ -23,6 +23,11 @@
                     }
                 ]
             },
+            "Workflow": {
+                "Status": [
+                    "NEW"
+                ]
+            },
             "RecordState": [
                 "ACTIVE"
             ]
