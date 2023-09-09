@@ -22,7 +22,10 @@
                         "anything-but": "PASSED"
                     }
                 ]
-            }
+            },
+            "RecordState": [
+                "ACTIVE"
+            ]
         }
     }
 }
