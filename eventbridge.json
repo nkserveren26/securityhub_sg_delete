@@ -1,0 +1,21 @@
+{
+    "source": [
+        "aws.securityhub"
+    ],
+    "detail-type": [
+        "Security Hub Findings - Imported"
+    ],
+    "detail": {
+        "findings": {
+            "ProductArn": [
+                "arn:aws:securityhub:us-east-1::product/aws/inspector"
+            ],
+            "Severity": {
+                "Label": [
+                    "INFORMATIONAL",
+                    "LOW"
+                ]
+            }
+        }
+    }
+}
