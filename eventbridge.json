@@ -7,7 +7,9 @@
     ],
     "detail": {
         "findings": {
-            "ProductArn": "arn:aws:securityhub:ap-northeast-1::product/aws/securityhub",
+            "ProductArn": [
+                "arn:aws:securityhub:ap-northeast-1::product/aws/securityhub"
+            ],
             "GeneratorId":"security-control/EC2.19",
             "Severity": {
                 "Label": [
