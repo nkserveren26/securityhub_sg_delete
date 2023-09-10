@@ -6,7 +6,7 @@ ec2 = boto3.client('ec2')
 
 def handler(event, context):
     print(event)
-    resources = event["detail"]["findings"]["Resources"]
+    resources = event["detail"]["findings"]
     print(resources)
     #セキュリティグループIDを取得
     #message = json.loads(event['Records'][0])
