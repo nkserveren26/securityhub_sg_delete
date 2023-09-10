@@ -8,7 +8,7 @@ def handler(event, context):
     print(event)
     resources = event["detail"]["findings"][0]["Resources"]
     sgId = resources[0]["Details"]["AwsEc2SecurityGroup"]["GroupId"]
-    print(sg)
+    print(sgId)
     #セキュリティグループIDを取得
     #message = json.loads(event['Records'][0])
 
