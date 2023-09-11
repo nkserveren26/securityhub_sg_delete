@@ -10,7 +10,7 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
     super(scope, id, props);
 
     const delete_sg_func_params: LambdaFunctionParams = {
-      functionName: "",
+      functionName: "delete_sg_full_open_lambda",
       description: "This lambda deletes inbound rules which allow full open.",
       codePath: "lambda/delete_sg",
       handler: "index.handler"
