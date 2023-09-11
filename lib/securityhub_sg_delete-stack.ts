@@ -27,5 +27,8 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       this, 
       delete_sg_func_params
     );
+
+    //LambdaのロールにSGのインバウンドルール削除権限を付与するポリシーを追加
+    delete_sg_func.addToRolePolicy(policy_for_lambdaRole);
   }
 }
