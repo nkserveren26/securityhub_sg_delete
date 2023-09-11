@@ -17,7 +17,7 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
     };
 
     const delete_sg_func: Function = LambdaCreator.createLambdaFunction(
-      scope, 
+      this, 
       delete_sg_func_params
     );
   }
