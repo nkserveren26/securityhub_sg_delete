@@ -11,6 +11,11 @@ export class LambdaCreator {
         params: LambdaFunctionParams): Function {
         const defaultRole: Role = new Role(self, "My Role", {
             assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
+            managedPolicies: [
+                {
+                    managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
+                },
+            ],
         });
         const lambdaFunction: Function = new Function(self,params.functionName, {
             functionName: params.functionName,
