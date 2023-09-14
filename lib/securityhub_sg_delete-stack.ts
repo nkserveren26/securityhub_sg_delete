@@ -47,6 +47,14 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       name: eventBridgeParams.ruleName,
       description: eventBridgeParams.ruleDescription,
       eventBusName: eventBus.attrName,
+      eventPattern: {
+        "detail-type": [
+          "Security Hub Findings - Imported"
+        ],
+        "source": [
+          "aws.securityhub"
+        ],
+      }
     
     });
 
