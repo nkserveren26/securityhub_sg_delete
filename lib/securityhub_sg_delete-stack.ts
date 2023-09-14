@@ -30,13 +30,13 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       resources: ["*"]
     });
 
-    const delete_sg_func: Function = LambdaCreator.createLambdaFunction(
+    const deleteSgFunc: Function = LambdaCreator.createLambdaFunction(
       this, 
       deleteSgFuncParams
     );
 
     //LambdaのロールにSGのインバウンドルール削除権限を付与するポリシーを追加
-    delete_sg_func.addToRolePolicy(policy_for_lambdaRole);
+    deleteSgFunc.addToRolePolicy(policy_for_lambdaRole);
 
     //EventBridgeの作成
     const eventBus = new CfnEventBus(this, eventBridgeParams.eventBusName,{
@@ -72,10 +72,15 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
             "RecordState": ["ACTIVE"]
           }
         },
-      }
+      },
+      state: "ENABLED",
+      targets: [
+        {
+          id: "delete_sg_inbound_rule_of_allport",
+          arn: deleteSgFunc.functionArn
+        }
+      ]
     
     });
-
-
   }
 }
