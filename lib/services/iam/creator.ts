@@ -3,7 +3,7 @@ import { Construct } from "constructs";
 import { customPolicyStatementParams } from "./interfaces";
 
 export class IAMCreator {
-    public static createCodeBuildRole(self: Construct, roleName: string) {
+    public static createCodeBuildRole(self: Construct, roleName: string): Role {
         const codeBuildRole = new Role(self, roleName, {
             roleName: roleName,
             assumedBy: new ServicePrincipal('codebuild.amazonaws.com'),
@@ -13,6 +13,7 @@ export class IAMCreator {
                 },
             ],
         });
+        return codeBuildRole;
     }
     public static createCustomPolicyStatement(params: customPolicyStatementParams): PolicyStatement {
         const {effect, actions, resources} = params;
