@@ -11,6 +11,12 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    const iamPolicyParams = {
+      effect: "ALLOW",
+      action: ["ec2:RevokeSecurityGroupIngress"],
+      resources: ["*"]
+    };
+
     const deleteSgFuncParams: LambdaFunctionParams = {
       functionName: "delete_sg_full_open_lambda",
       description: "This lambda deletes inbound rules which allow full open.",
