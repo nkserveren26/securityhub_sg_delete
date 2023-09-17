@@ -14,12 +14,13 @@ export class IAMCreator {
             ],
         });
     }
-    public static createCustomPolicyStatement(params: customPolicyStatementParams) {
+    public static createCustomPolicyStatement(params: customPolicyStatementParams): PolicyStatement {
         const {effect, actions, resources} = params;
         const policyStatement = new PolicyStatement({
             effect: effect,
             actions: actions,
             resources: resources
         });
+        return policyStatement;
     }
 }
