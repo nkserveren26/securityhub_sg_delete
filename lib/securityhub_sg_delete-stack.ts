@@ -1,19 +1,21 @@
+import { Resource } from 'aws-cdk-lib/aws-apigateway';
 import * as cdk from 'aws-cdk-lib';
 import { Function } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import { LambdaCreator } from './services/lambda/creator';
 import { LambdaFunctionParams } from './services/lambda/interfaces';
-import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Effect, PolicyStatement, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { CfnEventBus, CfnRule } from 'aws-cdk-lib/aws-events';
+import { customPolicyStatementParams } from './services/iam/interfaces';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class SecurityhubSgDeleteStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const iamPolicyParams = {
+    const iamPolicyParams: customPolicyStatementParams = {
       effect: Effect.ALLOW,
-      action: ["ec2:RevokeSecurityGroupIngress"],
+      actions: ["ec2:RevokeSecurityGroupIngress"],
       resources: ["*"]
     };
 
@@ -45,7 +47,6 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
     deleteSgFunc.addToRolePolicy(policy_for_lambdaRole);
 
     //EventBridgeの作成
-
     const rule = new CfnRule(this, eventBridgeParams.ruleName, {
       name: eventBridgeParams.ruleName,
       description: eventBridgeParams.ruleDescription,
@@ -83,7 +84,13 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
           arn: deleteSgFunc.functionArn
         }
       ]
-    
+    });
+
+    //EventBridgeルールがinvokeする権限をLambdaのリソースポリシーに追加
+    deleteSgFunc.addPermission('invokePermission', {
+      principal: new ServicePrincipal("events.amazonaws.com"),
+      action: 'lambda:InvokeFunction',
+      sourceArn: rule.attrArn
     });
   }
 }
