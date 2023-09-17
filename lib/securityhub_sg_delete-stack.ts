@@ -82,5 +82,8 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       ]
     
     });
+
+    //イベントバスが作成された後にイベントルールを作成するように調整
+    rule.addDependency(eventBus);
   }
 }
