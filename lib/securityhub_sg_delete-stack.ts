@@ -12,7 +12,7 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
     super(scope, id, props);
 
     const iamPolicyParams = {
-      effect: "ALLOW",
+      effect: Effect.ALLOW,
       action: ["ec2:RevokeSecurityGroupIngress"],
       resources: ["*"]
     };
@@ -45,14 +45,11 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
     deleteSgFunc.addToRolePolicy(policy_for_lambdaRole);
 
     //EventBridgeの作成
-    const eventBus = new CfnEventBus(this, eventBridgeParams.eventBusName,{
-      name: eventBridgeParams.eventBusName
-    });
 
     const rule = new CfnRule(this, eventBridgeParams.ruleName, {
       name: eventBridgeParams.ruleName,
       description: eventBridgeParams.ruleDescription,
-      eventBusName: eventBus.attrName,
+      eventBusName: "default",
       eventPattern: {
         "detail-type": [
           "Security Hub Findings - Imported"
@@ -88,8 +85,5 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       ]
     
     });
-
-    //イベントバスが作成された後にイベントルールを作成するように調整
-    rule.addDependency(eventBus);
   }
 }
