@@ -1,5 +1,6 @@
-import { Effect,  Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import { Effect,  PolicyStatement,  Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
+import { customPolicyStatementParams } from "./interfaces";
 
 export class IAMCreator {
     public static createCodeBuildRole(self: Construct, roleName: string) {
@@ -11,6 +12,14 @@ export class IAMCreator {
                     managedPolicyArn: 'arn:aws:iam::aws:policy/AdministratorAccess',
                 },
             ],
+        });
+    }
+    public static createCustomPolicyStatement(params: customPolicyStatementParams) {
+        const {effect, actions, resources} = params;
+        const policyStatement = new PolicyStatement({
+            effect: effect,
+            actions: actions,
+            resources: resources
         });
     }
 }
