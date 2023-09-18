@@ -98,10 +98,5 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
 
     //EventBridgeルールがinvokeする権限をLambdaのリソースポリシーに追加
     LambdaCreator.addPermissionToLambda(deleteSgFunc, addPermissionParams);
-    deleteSgFunc.addPermission('invokePermission', {
-      principal: new ServicePrincipal("events.amazonaws.com"),
-      action: 'lambda:InvokeFunction',
-      sourceArn: rule.attrArn
-    });
   }
 }
