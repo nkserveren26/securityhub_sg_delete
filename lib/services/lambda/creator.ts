@@ -38,9 +38,9 @@ export class LambdaCreator {
     public static addPermissionToLambda(lambdaFunc: Function, params: AddPermissionParams) {
         const {id, principal, action, sourceArn} = params;
         lambdaFunc.addPermission(id, {
-            principal,
-            action,
-            sourceArn
+            principal: principal,
+            action: action,
+            sourceArn: sourceArn
         });
     }
 };
