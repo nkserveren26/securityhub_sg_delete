@@ -1,12 +1,11 @@
 import { IAMCreator } from './services/iam/creator';
-import { Resource } from 'aws-cdk-lib/aws-apigateway';
 import * as cdk from 'aws-cdk-lib';
 import { Function } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import { LambdaCreator } from './services/lambda/creator';
 import { AddPermissionParams, LambdaFunctionParams } from './services/lambda/interfaces';
 import { Effect, PolicyStatement, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
-import { CfnEventBus, CfnRule } from 'aws-cdk-lib/aws-events';
+import { CfnRule } from 'aws-cdk-lib/aws-events';
 import { customPolicyStatementParams } from './services/iam/interfaces';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
