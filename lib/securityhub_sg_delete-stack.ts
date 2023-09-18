@@ -1,3 +1,4 @@
+import { IAMCreator } from './services/iam/creator';
 import { Resource } from 'aws-cdk-lib/aws-apigateway';
 import * as cdk from 'aws-cdk-lib';
 import { Function } from 'aws-cdk-lib/aws-lambda';
@@ -13,12 +14,14 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    //LambdaのIAMロールに付与するIAMポリシー作成に使用するパラメータ
     const iamPolicyParams: customPolicyStatementParams = {
       effect: Effect.ALLOW,
       actions: ["ec2:RevokeSecurityGroupIngress"],
       resources: ["*"]
     };
 
+    //Lambda関数作成に使用するパラメータ
     const deleteSgFuncParams: LambdaFunctionParams = {
       functionName: "delete_sg_full_open_lambda",
       description: "This lambda deletes inbound rules which allow full open.",
@@ -26,18 +29,17 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       handler: "index.handler"
     };
 
+    //EventBridge作成に使用するパラメータ
     const eventBridgeParams = {
       eventBusName: "eventBus",
       ruleName: "securityHubAllPortRule",
       ruleDescription: "A rule for security hub policy stricting restricting the opening of all ports"
     };
 
-    const policy_for_lambdaRole: PolicyStatement = new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ["ec2:RevokeSecurityGroupIngress"],
-      resources: ["*"]
-    });
+    //LambdaのIAMロールに付与するIAMポリシーを作成
+    const policy_for_lambdaRole: PolicyStatement = IAMCreator.createCustomPolicyStatement(iamPolicyParams);
 
+    //Lambda関数の作成
     const deleteSgFunc: Function = LambdaCreator.createLambdaFunction(
       this, 
       deleteSgFuncParams

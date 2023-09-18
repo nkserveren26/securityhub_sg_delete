@@ -34,6 +34,7 @@ export class LambdaCreator {
         });
         return lambdaFunction;
     }
+    
     //Lambdaのリソースポリシーに権限を追加する
     public static addPermissionToLambda(lambdaFunc: Function, params: AddPermissionParams) {
         const {id, principal, action, sourceArn} = params;
