@@ -16,4 +16,9 @@ export interface LambdaFunctionParams {
 }
 
 //Lambdaリソースポリシーへの権限追加に使用するパラメータを定義
-export interface AddPermissionParams {}
+export interface AddPermissionParams {
+    id: string,
+    principal: string,
+    action: string,
+    sourceArn: string
+}
