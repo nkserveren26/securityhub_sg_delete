@@ -1,6 +1,6 @@
 import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
-import { LambdaFunctionParams } from "./interfaces";
+import { AddPermissionParams, LambdaFunctionParams } from "./interfaces";
 import { Duration } from "aws-cdk-lib";
 import { Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 
@@ -33,5 +33,14 @@ export class LambdaCreator {
 
         });
         return lambdaFunction;
+    }
+    //Lambdaのリソースポリシーに権限を追加する
+    public static addPermissionToLambda(lambdaFunc: Function, params: AddPermissionParams) {
+        const {id, principal, action, sourceArn} = params;
+        lambdaFunc.addPermission(id, {
+            principal,
+            action,
+            sourceArn
+        });
     }
 };
