@@ -7,7 +7,6 @@ import { AddPermissionParams, LambdaFunctionParams } from './services/lambda/int
 import { Effect, PolicyStatement, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { CfnRule } from 'aws-cdk-lib/aws-events';
 import { customPolicyStatementParams } from './services/iam/interfaces';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class SecurityhubSgDeleteStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {

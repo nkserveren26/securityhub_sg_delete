@@ -1,4 +1,4 @@
-import { Effect,  PolicyStatement,  Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import { PolicyStatement,  Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
 import { customPolicyStatementParams } from "./interfaces";
 
