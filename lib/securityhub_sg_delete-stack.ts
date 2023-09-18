@@ -4,7 +4,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Function } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import { LambdaCreator } from './services/lambda/creator';
-import { LambdaFunctionParams } from './services/lambda/interfaces';
+import { AddPermissionParams, LambdaFunctionParams } from './services/lambda/interfaces';
 import { Effect, PolicyStatement, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { CfnEventBus, CfnRule } from 'aws-cdk-lib/aws-events';
 import { customPolicyStatementParams } from './services/iam/interfaces';
@@ -88,7 +88,16 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       ]
     });
 
+    //Lambdaリソースポリシー権限追加に使用するパラメータ
+    const addPermissionParams: AddPermissionParams = {
+      id: "invokePermission",
+      principal: new ServicePrincipal("events.amazonaws.com"),
+      action: "lambda:InvokeFunction",
+      sourceArn: rule.attrArn,
+    };
+
     //EventBridgeルールがinvokeする権限をLambdaのリソースポリシーに追加
+    LambdaCreator.addPermissionToLambda(deleteSgFunc, addPermissionParams);
     deleteSgFunc.addPermission('invokePermission', {
       principal: new ServicePrincipal("events.amazonaws.com"),
       action: 'lambda:InvokeFunction',
