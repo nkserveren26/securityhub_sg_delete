@@ -1,4 +1,4 @@
-import { Role } from "aws-cdk-lib/aws-iam";
+import { IPrincipal, Role } from "aws-cdk-lib/aws-iam";
 import { ILayerVersion, LayerVersion, Runtime } from "aws-cdk-lib/aws-lambda";
 
 //Lambda作成に使用するパラメータを定義
@@ -18,7 +18,7 @@ export interface LambdaFunctionParams {
 //Lambdaリソースポリシーへの権限追加に使用するパラメータを定義
 export interface AddPermissionParams {
     id: string,
-    principal: string,
+    principal: IPrincipal,
     action: string,
     sourceArn: string
 }
