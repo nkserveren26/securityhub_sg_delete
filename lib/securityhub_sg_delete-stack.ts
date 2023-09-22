@@ -47,7 +47,7 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
     deleteSgFunc.addToRolePolicy(policy_for_lambdaRole);
 
     //EventBridgeの作成
-    const rule = new CfnRule(this, eventBridgeParams.ruleName, {
+    const rule: CfnRule = new CfnRule(this, eventBridgeParams.ruleName, {
       name: eventBridgeParams.ruleName,
       description: eventBridgeParams.ruleDescription,
       eventBusName: "default",
