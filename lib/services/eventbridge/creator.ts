@@ -3,7 +3,7 @@ import { Construct } from "constructs";
 import { eventRuleParams } from "./interfaces";
 
 export class EventBridgeCreator {
-    public static createEventRule(
+    public static createAWSEventRule(
         self: Construct,
         params:eventRuleParams): CfnRule {
         const { ruleName, ruleDescription, state, targetArn, targetId } = params;
