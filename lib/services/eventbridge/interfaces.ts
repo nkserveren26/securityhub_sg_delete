@@ -5,3 +5,8 @@ export interface eventRuleParams {
     targetId: string,
     targetArn: string
 }
+
+export interface SecurityHubEventRule extends eventRuleParams {
+    sourceSecurityHubRule: string,
+    severity: "CRITICAL" | "HIGH"
+}
