@@ -6,7 +6,14 @@ export class EventBridgeCreator {
     public static createSecurityHubEventRule(
         self: Construct,
         params: SecurityHubEventRule): CfnRule {
-        const { ruleName, ruleDescription, state, targetArn, targetId } = params;
+        const { 
+            ruleName, 
+            ruleDescription, 
+            sourceSecurityHubRule, 
+            severity, 
+            state, 
+            targetArn, 
+            targetId } = params;
         const eventRule = new CfnRule(self, ruleName, {
             name: ruleName,
             description: ruleDescription,
@@ -21,9 +28,9 @@ export class EventBridgeCreator {
                 "detail": {
                     "findings": {
                         "ProductArn": ["arn:aws:securityhub:ap-northeast-1::product/aws/securityhub"],
-                        "GeneratorId": ["security-control/EC2.19"],
+                        "GeneratorId": [sourceSecurityHubRule],
                         "Severity": {
-                            "Label": ["CRITICAL"]
+                            "Label": [severity]
                         },
                         "Compliance": {
                             "Status": [{
