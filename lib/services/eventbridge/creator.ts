@@ -6,7 +6,7 @@ export class EventBridgeCreator {
     public static createEventRule(
         self: Construct,
         params:eventRuleParams): CfnRule {
-        const { ruleName, ruleDescription, targetArn } = params;
+        const { ruleName, ruleDescription, targetArn, targetId } = params;
         const eventRule = new CfnRule(self, ruleName, {
             name: ruleName,
             description: ruleDescription,
@@ -40,7 +40,7 @@ export class EventBridgeCreator {
             state: "ENABLED",
             targets: [
                 {
-                    id: "delete_sg_inbound_rule_of_allport",
+                    id: targetId,
                     arn: targetArn
                 }
             ]
