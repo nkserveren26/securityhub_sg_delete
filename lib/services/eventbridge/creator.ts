@@ -6,7 +6,7 @@ export class EventBridgeCreator {
     public static createEventRule(
         self: Construct,
         params:eventRuleParams): CfnRule {
-        const { ruleName, ruleDescription, targetArn, targetId } = params;
+        const { ruleName, ruleDescription, state, targetArn, targetId } = params;
         const eventRule = new CfnRule(self, ruleName, {
             name: ruleName,
             description: ruleDescription,
@@ -37,7 +37,7 @@ export class EventBridgeCreator {
                     }
                 },
             },
-            state: "ENABLED",
+            state: state,
             targets: [
                 {
                     id: targetId,
