@@ -1,1 +1,5 @@
-export class eventRuleParams {}
+export class eventRuleParams {
+    ruleName: string;
+    ruleDescription: string
+
+}
