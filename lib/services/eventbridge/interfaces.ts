@@ -1,4 +1,4 @@
-export interface eventRuleParams {
+export interface eventRuleCommonParams {
     ruleName: string,
     ruleDescription: string,
     state: "ENABLED" | "DISABLED"
@@ -6,7 +6,7 @@ export interface eventRuleParams {
     targetArn: string
 }
 
-export interface SecurityHubEventRule extends eventRuleParams {
+export interface SecurityHubEventRule extends eventRuleCommonParams {
     sourceSecurityHubRule: string,
     severity: "CRITICAL" | "HIGH"
 }
