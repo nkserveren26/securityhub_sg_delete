@@ -7,6 +7,7 @@ import { AddPermissionParams, LambdaFunctionParams } from './services/lambda/int
 import { Effect, PolicyStatement, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { CfnRule } from 'aws-cdk-lib/aws-events';
 import { customPolicyStatementParams } from './services/iam/interfaces';
+import { SecurityHubEventRule, SecurityHubEventRuleParams } from './services/eventbridge/interfaces';
 
 export class SecurityhubSgDeleteStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -27,12 +28,7 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       handler: "index.handler"
     };
 
-    //EventBridge作成に使用するパラメータ
-    const eventBridgeParams = {
-      eventBusName: "eventBus",
-      ruleName: "securityHubAllPortRule",
-      ruleDescription: "A rule for security hub policy stricting restricting the opening of all ports"
-    };
+    
 
     //LambdaのIAMロールに付与するIAMポリシーを作成
     const policy_for_lambdaRole: PolicyStatement = IAMCreator.createCustomPolicyStatement(iamPolicyParams);
@@ -45,6 +41,17 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
 
     //LambdaのロールにSGのインバウンドルール削除権限を付与するポリシーを追加
     deleteSgFunc.addToRolePolicy(policy_for_lambdaRole);
+
+    //EventBridge作成に使用するパラメータ
+    const sechubEventRuleParams: SecurityHubEventRuleParams = {
+      ruleName: "securityHubAllPortRule",
+      ruleDescription: "A rule for security hub policy stricting restricting the opening of all ports",
+      state: "ENABLED",
+      targetId: "delete_sg_inbound_rule_of_allport",
+      targetArn: deleteSgFunc.functionArn,
+      sourceSecurityHubRule: "security-control/EC2.19",
+      severity: "CRITICAL",
+    };
 
     //EventBridgeの作成
     const rule: CfnRule = new CfnRule(this, eventBridgeParams.ruleName, {
