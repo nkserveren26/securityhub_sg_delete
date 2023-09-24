@@ -3,11 +3,12 @@ import json
 from botocore.exceptions import ClientError
 import logging
 
-ec2 = boto3.client('ec2')
+ec2 = boto3.client("ec2")
 logger = logging.getLogger()
 
 def handler(event, context):
     logger.info("Start processing of this function.")
+    logger.info(f"event: {event}")
     
     resources = event["detail"]["findings"][0]["Resources"]
 
