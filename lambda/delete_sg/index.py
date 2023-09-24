@@ -5,6 +5,7 @@ import logging
 
 ec2 = boto3.client("ec2")
 logger = logging.getLogger()
+logLevel=logging.INFO
 
 def handler(event, context):
     logger.info("Start processing of this function.")
