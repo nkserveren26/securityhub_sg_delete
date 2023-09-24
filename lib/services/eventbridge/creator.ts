@@ -1,11 +1,11 @@
 import { CfnRule } from "aws-cdk-lib/aws-events";
 import { Construct } from "constructs";
-import { SecurityHubEventRule } from "./interfaces";
+import { SecurityHubEventRuleParams } from "./interfaces";
 
 export class EventBridgeCreator {
     public static createSecurityHubEventRule(
         self: Construct,
-        params: SecurityHubEventRule): CfnRule {
+        params: SecurityHubEventRuleParams): CfnRule {
         const { 
             ruleName, 
             ruleDescription, 

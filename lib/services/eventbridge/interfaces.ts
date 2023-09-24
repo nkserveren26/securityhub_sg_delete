@@ -6,7 +6,7 @@ export interface eventRuleCommonParams {
     targetArn: string
 }
 
-export interface SecurityHubEventRule extends eventRuleCommonParams {
+export interface SecurityHubEventRuleParams extends eventRuleCommonParams {
     sourceSecurityHubRule: string,
     severity: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" | "INFORMATIONAL"
 }
