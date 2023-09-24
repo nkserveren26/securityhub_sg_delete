@@ -14,7 +14,7 @@ export class EventBridgeCreator {
             state, 
             targetArn, 
             targetId } = params;
-        const eventRule = new CfnRule(self, ruleName, {
+        const eventRule: CfnRule = new CfnRule(self, ruleName, {
             name: ruleName,
             description: ruleDescription,
             eventBusName: "default",
