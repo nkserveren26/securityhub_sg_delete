@@ -1,10 +1,14 @@
 import boto3
 import json
 from botocore.exceptions import ClientError
+import logging
 
 ec2 = boto3.client('ec2')
+logger = logging.getLogger()
 
 def handler(event, context):
+    logger.info("Start processing of this function.")
+    
     resources = event["detail"]["findings"][0]["Resources"]
 
     #セキュリティグループIDを取得
