@@ -29,8 +29,6 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
       handler: "index.handler"
     };
 
-    
-
     //LambdaのIAMロールに付与するIAMポリシーを作成
     const policy_for_lambdaRole: PolicyStatement = IAMCreator.createCustomPolicyStatement(iamPolicyParams);
 
