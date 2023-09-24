@@ -25,4 +25,4 @@ def handler(event, context):
             IpProtocol = 'tcp'
         )
     except ClientError as e:
-        print(e)
+        logger.error(e)
