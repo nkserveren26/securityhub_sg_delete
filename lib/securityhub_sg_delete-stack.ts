@@ -7,7 +7,8 @@ import { AddPermissionParams, LambdaFunctionParams } from './services/lambda/int
 import { Effect, PolicyStatement, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { CfnRule } from 'aws-cdk-lib/aws-events';
 import { customPolicyStatementParams } from './services/iam/interfaces';
-import { SecurityHubEventRule, SecurityHubEventRuleParams } from './services/eventbridge/interfaces';
+import { SecurityHubEventRuleParams } from './services/eventbridge/interfaces';
+import { EventBridgeCreator } from './services/eventbridge/creator';
 
 export class SecurityhubSgDeleteStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -54,7 +55,10 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
     };
 
     //EventBridgeの作成
-    const rule: CfnRule = new CfnRule(this, eventBridgeParams.ruleName, {
+    const rule: CfnRule = EventBridgeCreator.createSecurityHubEventRule(this, sechubEventRuleParams);
+
+    /*
+    const drule: CfnRule = new CfnRule(this, eventBridgeParams.ruleName, {
       name: eventBridgeParams.ruleName,
       description: eventBridgeParams.ruleDescription,
       eventBusName: "default",
@@ -92,6 +96,7 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
         }
       ]
     });
+    */
 
     //Lambdaリソースポリシー権限追加に使用するパラメータ
     const addPermissionParams: AddPermissionParams = {
