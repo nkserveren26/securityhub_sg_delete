@@ -8,5 +8,5 @@ export interface eventRuleCommonParams {
 
 export interface SecurityHubEventRule extends eventRuleCommonParams {
     sourceSecurityHubRule: string,
-    severity: "CRITICAL" | "HIGH"
+    severity: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" | "INFORMATIONAL"
 }
