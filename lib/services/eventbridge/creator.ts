@@ -6,6 +6,8 @@ export class EventBridgeCreator {
     public static createSecurityHubEventRule(
         self: Construct,
         params: SecurityHubEventRuleParams): CfnRule {
+        
+        // パラメータを個別の変数にセット
         const { 
             ruleName, 
             ruleDescription, 
@@ -14,6 +16,8 @@ export class EventBridgeCreator {
             state, 
             targetArn, 
             targetId } = params;
+        
+        // イベントルールの作成
         const eventRule: CfnRule = new CfnRule(self, ruleName, {
             name: ruleName,
             description: ruleDescription,
