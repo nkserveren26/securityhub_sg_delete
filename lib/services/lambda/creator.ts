@@ -9,6 +9,7 @@ export class LambdaCreator {
     public static createLambdaFunction(
         self: Construct,
         params: LambdaFunctionParams): Function {
+        // パラメータを個別の変数にセット
         const {
             functionName, 
             description,
@@ -20,6 +21,8 @@ export class LambdaCreator {
             role, 
             environment, 
             layers} = params;
+        
+        // デフォルトで使用するIAMロール
         const defaultRole: Role = new Role(self, "My Role", {
             assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
             managedPolicies: [
@@ -28,6 +31,8 @@ export class LambdaCreator {
                 },
             ],
         });
+
+        //Lambda関数の作成
         const lambdaFunction: Function = new Function(self,functionName, {
             functionName: functionName,
             description: description? description : "",
