@@ -20,6 +20,8 @@ export class APIGatewayCreator {
         apiResource.addMethod(
             "OPTIONS",
             new MockIntegration({
+                // 統合レスポンスの定義
+                // ここでCORSの設定をする
                 integrationResponses: [
                     {
                         statusCode: "200",
@@ -33,10 +35,14 @@ export class APIGatewayCreator {
                     },
                 ],
                 passthroughBehavior: PassthroughBehavior.NEVER,
+                // 統合リクエストにリクエストテンプレートを定義
+                // これがないとprefrightリクエストでエラーが出る
                 requestTemplates: {
                     "application/json": '{"statusCode": 200}',
                 }
             }),
+            // メソッドレスポンスの定義
+            // CORSの各ヘッダーを有効化
             {
                 methodResponses: [
                     {
