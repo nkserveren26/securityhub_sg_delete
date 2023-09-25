@@ -41,7 +41,6 @@ export class LambdaCreator {
             role: role ? role : defaultRole,
             environment: environment? environment : {},
             layers: layers ? layers : [],
-
         });
         return lambdaFunction;
     }
