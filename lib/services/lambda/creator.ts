@@ -11,7 +11,8 @@ export class LambdaCreator {
         params: LambdaFunctionParams): Function {
         const {
             functionName, 
-            description, 
+            description,
+            codePath, 
             runtime, 
             handler, 
             memorySize, 
@@ -27,19 +28,19 @@ export class LambdaCreator {
                 },
             ],
         });
-        const lambdaFunction: Function = new Function(self,params.functionName, {
-            functionName: params.functionName,
-            description: params.description? params.description : "",
-            code: Code.fromAsset(params.codePath),
-            runtime: params.runtime ? params.runtime : Runtime.PYTHON_3_9,
-            handler: params.handler ? params.handler : "index.handler",
-            memorySize: params.memorySize ? params.memorySize : 256,
+        const lambdaFunction: Function = new Function(self,functionName, {
+            functionName: functionName,
+            description: description? description : "",
+            code: Code.fromAsset(codePath),
+            runtime: runtime ? runtime : Runtime.PYTHON_3_9,
+            handler: handler ? handler : "index.handler",
+            memorySize: memorySize ? memorySize : 256,
             timeout: Duration.seconds(
-                params.timeoutValue ? params.timeoutValue : 180
+                timeoutValue ? timeoutValue : 180
             ),
-            role: params.role ? params.role : defaultRole,
-            environment: params.environment? params.environment : {},
-            layers: params.layers ? params.layers : [],
+            role: role ? role : defaultRole,
+            environment: environment? environment : {},
+            layers: layers ? layers : [],
 
         });
         return lambdaFunction;
