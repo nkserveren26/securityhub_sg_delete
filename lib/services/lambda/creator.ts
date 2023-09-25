@@ -9,6 +9,16 @@ export class LambdaCreator {
     public static createLambdaFunction(
         self: Construct,
         params: LambdaFunctionParams): Function {
+        const {
+            functionName, 
+            description, 
+            runtime, 
+            handler, 
+            memorySize, 
+            timeoutValue,
+            role, 
+            environment, 
+            layers} = params;
         const defaultRole: Role = new Role(self, "My Role", {
             assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
             managedPolicies: [
