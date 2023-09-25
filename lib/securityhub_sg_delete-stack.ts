@@ -55,47 +55,6 @@ export class SecurityhubSgDeleteStack extends cdk.Stack {
     //EventBridgeの作成
     const rule: CfnRule = EventBridgeCreator.createSecurityHubEventRule(this, sechubEventRuleParams);
 
-    /*
-    const drule: CfnRule = new CfnRule(this, eventBridgeParams.ruleName, {
-      name: eventBridgeParams.ruleName,
-      description: eventBridgeParams.ruleDescription,
-      eventBusName: "default",
-      eventPattern: {
-        "detail-type": [
-          "Security Hub Findings - Imported"
-        ],
-        "source": [
-          "aws.securityhub"
-        ],
-        "detail": {
-          "findings": {
-            "ProductArn": ["arn:aws:securityhub:ap-northeast-1::product/aws/securityhub"],
-            "GeneratorId": ["security-control/EC2.19"],
-            "Severity": {
-              "Label": ["CRITICAL"]
-            },
-            "Compliance": {
-              "Status": [{
-                "anything-but": "PASSED"
-              }]
-            },
-            "Workflow": {
-              "Status": ["NEW"]
-            },
-            "RecordState": ["ACTIVE"]
-          }
-        },
-      },
-      state: "ENABLED",
-      targets: [
-        {
-          id: "delete_sg_inbound_rule_of_allport",
-          arn: deleteSgFunc.functionArn
-        }
-      ]
-    });
-    */
-
     //Lambdaリソースポリシー権限追加に使用するパラメータ
     const addPermissionParams: AddPermissionParams = {
       id: "invokePermission",
